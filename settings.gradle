@@ -1,0 +1,3 @@
+rootProject.name = "Image Slider Libarary"
+include ':app'
+include ':ImageSlider'
