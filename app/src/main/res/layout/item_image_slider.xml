@@ -3,21 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <com.afdhal_fa.imageslider.ImageSlider
+    <ImageView
         android:id="@+id/imageSlide"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:iss_auto_cycle="true"
-        app:iss_delay="0"
-        app:iss_period="5000"
-        app:iss_title_color="@color/purple_500"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:srcCompat="@drawable/ic_image_placeholder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

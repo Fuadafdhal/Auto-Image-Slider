@@ -40,7 +40,7 @@ class ImageSlider @JvmOverloads constructor(
     private var currentPage = 0
     private var imageCount = 0
 
-    private var cornerRadius: Int = 0
+//    private var cornerRadius: Int = 0
     private var period: Long = 0
     private var delay: Long = 0
     private var autoCycle = false
@@ -68,7 +68,7 @@ class ImageSlider @JvmOverloads constructor(
             defStyleAttr
         )
 
-        cornerRadius = typedArray.getInt(R.styleable.ImageSlider_iss_corner_radius, 1)
+//        cornerRadius = typedArray.getInt(R.styleable.ImageSlider_iss_corner_radius, 1)
         period = typedArray.getInt(R.styleable.ImageSlider_iss_period, 1000).toLong()
         delay = typedArray.getInt(R.styleable.ImageSlider_iss_delay, 1000).toLong()
         autoCycle = typedArray.getBoolean(R.styleable.ImageSlider_iss_auto_cycle, false)
@@ -107,6 +107,7 @@ class ImageSlider @JvmOverloads constructor(
         mAdapter.setWithTitle(isTitle)
         mAdapter.setTitleAlignment(titleGravity)
         mAdapter.setTitleColor(titleColor)
+
         viewPager?.adapter = mAdapter
         if (imageList.isNotEmpty()) {
             setupDots(imageList.size)
@@ -118,7 +119,7 @@ class ImageSlider @JvmOverloads constructor(
         }
     }
 
-    private fun setImageListWithAdapter(adapter: RecyclerView.Adapter<*>?, size: Int = 0) {
+    fun setImageListWithAdapter(adapter: RecyclerView.Adapter<*>?, size: Int = 0) {
         imageCount = size
         viewPager?.adapter = adapter
         if (size != 0) {
