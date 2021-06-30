@@ -18,8 +18,6 @@ import com.afdhal_fa.imageslider.model.SlideUIModel
 class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
     private var items: MutableList<SlideUIModel> = mutableListOf()
 
-    var onItemClick: ((SlideUIModel) -> Unit)? = null
-
     private var itemClickListener: ItemClickListener? = null
 
     private var errorImage: Int = 0
@@ -27,7 +25,12 @@ class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
     private var placeholder: Int = 0
 
     private var background: Int = 0
-    private var isTitle: Boolean = true
+
+    private var withTitle: Boolean = true
+
+    private var titleAlignment: Int = 0
+
+    private var titleColor: Int = -0x10000
 
 
     fun setItem(items: List<SlideUIModel>) {
@@ -48,9 +51,18 @@ class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
         background = image
     }
 
-    fun setIsTitle(boolean: Boolean) {
-        isTitle = boolean
+    fun setWithTitle(it: Boolean) {
+        withTitle = it
     }
+
+    fun setTitleAlignment(value: Int) {
+        titleAlignment = value
+    }
+
+    fun setTitleColor(value: Int) {
+        titleColor = value
+    }
+
 
     inner class VHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemImageSliderBinding.bind(itemView)
@@ -60,16 +72,17 @@ class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
                 placeholder(placeholder)
                 error(errorImage)
             }
-            if (isTitle) {
+            if (withTitle) {
                 binding.titleContainer.visibility = View.VISIBLE
                 binding.textTitle.text = model.title
                 binding.imageBackgroundTitle.load(background)
+                binding.textTitle.gravity = titleAlignment
+                binding.textTitle.setTextColor(titleColor)
             } else {
                 binding.titleContainer.visibility = View.GONE
             }
 
             binding.root.setOnClickListener {
-                onItemClick?.invoke(model)
                 itemClickListener?.onItemClick(model, adapterPosition)
             }
         }

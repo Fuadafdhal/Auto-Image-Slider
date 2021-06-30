@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -52,8 +51,9 @@ class ImageSlider @JvmOverloads constructor(
     private var placeholder = 0
     private var titleBackground = 0
     private var isTitle = true
-    private var textAlign = "LEFT"
-    private var indicatorAlign = "CENTER"
+    private var titleGravity: Int = 0x00800003 or 0x10
+    private var indicatorGravity: Int = 0x11
+    private var titleColor: Int = -0x1
     private var swipeTimer = Timer()
 
     init {
@@ -77,17 +77,21 @@ class ImageSlider @JvmOverloads constructor(
         selectedDot = typedArray.getResourceId(R.styleable.ImageSlider_iss_selected_dot, R.drawable.indicator_active)
         unselectedDot = typedArray.getResourceId(R.styleable.ImageSlider_iss_unselected_dot, R.drawable.indicator_inactive)
         titleBackground = typedArray.getResourceId(R.styleable.ImageSlider_iss_title_background, R.drawable.gradient)
-        isTitle = typedArray.getBoolean(R.styleable.ImageSlider_iss_title, true)
+        isTitle = typedArray.getBoolean(R.styleable.ImageSlider_iss_with_title, true)
 
-        typedArray.getString(R.styleable.ImageSlider_iss_text_align)?.let {
-            textAlign = it
+        typedArray.getInt(R.styleable.ImageSlider_iss_title_gravity, 0x00800003 or 0x10).let {
+            titleGravity = it
         }
 
-        typedArray.getString(R.styleable.ImageSlider_iss_indicator_align)?.let {
-            indicatorAlign = it
+        typedArray.getInt(R.styleable.ImageSlider_iss_indicator_gravity, 0x11).let {
+            indicatorGravity = it
         }
+
+        typedArray.getColor(R.styleable.ImageSlider_iss_title_color, -0x1).let {
+            titleColor = it
+        }
+
     }
-
 
     /**
      * Set image list to adapter.
@@ -100,7 +104,9 @@ class ImageSlider @JvmOverloads constructor(
         mAdapter.setErrorImage(errorImage)
         mAdapter.setPlaceholderImage(placeholder)
         mAdapter.setBackgroundImage(titleBackground)
-        mAdapter.setIsTitle(isTitle)
+        mAdapter.setWithTitle(isTitle)
+        mAdapter.setTitleAlignment(titleGravity)
+        mAdapter.setTitleColor(titleColor)
         viewPager?.adapter = mAdapter
         if (imageList.isNotEmpty()) {
             setupDots(imageList.size)
@@ -112,7 +118,7 @@ class ImageSlider @JvmOverloads constructor(
         }
     }
 
-    private fun setImageListAdapter(adapter: RecyclerView.Adapter<*>?, size: Int = 0) {
+    private fun setImageListWithAdapter(adapter: RecyclerView.Adapter<*>?, size: Int = 0) {
         imageCount = size
         viewPager?.adapter = adapter
         if (size != 0) {
@@ -126,8 +132,8 @@ class ImageSlider @JvmOverloads constructor(
     }
 
     private fun setupDots(size: Int) {
-        println(indicatorAlign)
-        pagerDots?.gravity = getGravityFromAlign(indicatorAlign)
+        println(indicatorGravity)
+        pagerDots?.gravity = indicatorGravity
         pagerDots?.removeAllViews()
         dots = arrayOfNulls(size)
         val params: LinearLayout.LayoutParams =
@@ -204,37 +210,7 @@ class ImageSlider @JvmOverloads constructor(
      *
      * @param  itemClickListener  interface callback
      */
-    var onItemClickListener = mAdapter.onItemClick
-
-
-    /**
-     * Set item click listener for listen to image click
-     *
-     * @param  itemClickListener  interface callback
-     */
     fun setItemClickListener(itemClickListener: ItemClickListener) {
         mAdapter.setItemClickListener(itemClickListener)
     }
-
-
-    /**
-     * Get layout gravity value from indicatorAlign variable
-     *
-     * @param  textAlign  indicator align by user
-     */
-    fun getGravityFromAlign(textAlign: String): Int {
-        return when (textAlign) {
-            "RIGHT" -> {
-                Gravity.END
-            }
-            "LEFT" -> {
-                Gravity.START
-            }
-            else -> {
-                Gravity.CENTER
-            }
-        }
-    }
-
-
 }

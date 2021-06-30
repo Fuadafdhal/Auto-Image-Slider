@@ -8,11 +8,17 @@
 
     <com.afdhal_fa.imageslider.ImageSlider
         android:id="@+id/imageSlide"
-        app:iss_delay="0"
-        app:iss_auto_cycle="true"
-        app:iss_period="5000"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:iss_auto_cycle="true"
+        app:iss_delay="0"
+        app:iss_period="5000"
+        app:iss_corner_radius="30"
+        app:iss_title_color="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

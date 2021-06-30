@@ -16,6 +16,8 @@
         android:id="@+id/pager_dots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
         android:orientation="horizontal"
