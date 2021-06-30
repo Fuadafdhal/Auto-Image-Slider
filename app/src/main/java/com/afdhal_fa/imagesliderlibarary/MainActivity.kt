@@ -1,5 +1,6 @@
 package com.afdhal_fa.imagesliderlibarary
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
+        binding.buttonWithCustomAdapter.setOnClickListener {
+            startActivity(Intent(this, WithCustomAdapterActivity::class.java))
+        }
     }
 }

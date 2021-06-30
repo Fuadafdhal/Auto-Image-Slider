@@ -13,11 +13,11 @@ import com.afdhal_fa.imagesliderlibarary.databinding.ItemSampleImageSliderBindin
  */
 
 class SampleAdapter : RecyclerView.Adapter<SampleAdapter.VHolder>() {
-    private var items: MutableList<String> = mutableListOf()
+    private var items: MutableList<BannerUIModel> = mutableListOf()
 
-    var onItemClick: ((String) -> Unit)? = null
+    var onItemClick: ((BannerUIModel) -> Unit)? = null
 
-    fun setItem(items: List<String>) {
+    fun setItem(items: List<BannerUIModel>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
@@ -27,11 +27,12 @@ class SampleAdapter : RecyclerView.Adapter<SampleAdapter.VHolder>() {
     inner class VHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemSampleImageSliderBinding.bind(itemView)
 
-        fun onBind(image: String) {
-            binding.imageSlide.load(image)
+        fun onBind(model: BannerUIModel) {
+            binding.imageSlide.load(model.imageUrl)
+            binding.textTitle.text = model.title
 
             binding.root.setOnClickListener {
-                onItemClick?.invoke(image)
+                onItemClick?.invoke(model)
             }
         }
     }

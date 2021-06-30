@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Image Slider Libarary</string>
+    <string name="app_name">Image Slider</string>
+    <string name="with_custom_adapter">With Custom Adapter</string>
 </resources>
