@@ -9,12 +9,11 @@
     <com.afdhal_fa.imageslider.ImageSlider
         android:id="@+id/imageSlide"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         app:iss_auto_cycle="true"
         app:iss_delay="0"
-        app:iss_period="5000"
+        app:iss_period="1000"
         app:iss_title_color="@color/purple_500"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
