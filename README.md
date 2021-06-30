@@ -68,7 +68,7 @@ app:iss_with_background="false"
 -   You can change text gravity
 
 ```xml
-app:iss_title_gravity="center|bottom"
+app:iss_title_gravity="center"
 ```
 
 -   You can change text title background
