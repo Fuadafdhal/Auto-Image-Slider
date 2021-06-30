@@ -145,7 +145,7 @@ app:iss_unselected_dot="@drawable/default_unselected_dot"
  // build.gradle app/module
  dependencies {
      ...
-      implementation 'com.github.Fuadafdhal:Auto-Image-Slider:v1.0'
+      implementation 'com.github.Fuadafdhal:Auto-Image-Slider:1.0'
  }
  ```
 
