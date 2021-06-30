@@ -24,20 +24,11 @@
         android:id="@+id/titleContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:paddingBottom="40dp"
         app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:id="@+id/imageBackgroundTitle"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:contentDescription="@string/image"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/gradient" />
 
         <TextView
             android:id="@+id/textTitle"
@@ -46,10 +37,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="40dp"
+            android:gravity="center"
             android:lines="2"
             android:maxLines="2"
-            android:gravity="center"
             android:textColor="#ffff"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

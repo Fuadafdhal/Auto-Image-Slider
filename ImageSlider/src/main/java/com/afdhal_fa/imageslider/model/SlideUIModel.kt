@@ -6,6 +6,6 @@ package com.afdhal_fa.imageslider.model
  */
 
 data class SlideUIModel(
-    var imageUrl: String? = null,
+    var imageUrl: String,
     var title: String? = null
 )

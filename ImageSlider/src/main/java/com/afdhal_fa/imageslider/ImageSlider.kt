@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ImageView.ScaleType
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
@@ -40,7 +41,7 @@ class ImageSlider @JvmOverloads constructor(
     private var currentPage = 0
     private var imageCount = 0
 
-//    private var cornerRadius: Int = 0
+    //    private var cornerRadius: Int = 0
     private var period: Long = 0
     private var delay: Long = 0
     private var autoCycle = false
@@ -50,11 +51,24 @@ class ImageSlider @JvmOverloads constructor(
     private var errorImage = 0
     private var placeholder = 0
     private var titleBackground = 0
-    private var isTitle = true
+    private var withTitle = true
+    private var withBackground = true
     private var titleGravity: Int = 0x00800003 or 0x10
     private var indicatorGravity: Int = 0x11
     private var titleColor: Int = -0x1
+    private var imageScaleType: ScaleType = ScaleType.FIT_CENTER
     private var swipeTimer = Timer()
+
+    private val sScaleTypeArray = arrayOf(
+        ScaleType.MATRIX,
+        ScaleType.FIT_XY,
+        ScaleType.FIT_START,
+        ScaleType.FIT_CENTER,
+        ScaleType.FIT_END,
+        ScaleType.CENTER,
+        ScaleType.CENTER_CROP,
+        ScaleType.CENTER_INSIDE
+    )
 
     init {
         LayoutInflater.from(getContext()).inflate(R.layout.image_slider, this, true)
@@ -68,7 +82,6 @@ class ImageSlider @JvmOverloads constructor(
             defStyleAttr
         )
 
-//        cornerRadius = typedArray.getInt(R.styleable.ImageSlider_iss_corner_radius, 1)
         period = typedArray.getInt(R.styleable.ImageSlider_iss_period, 1000).toLong()
         delay = typedArray.getInt(R.styleable.ImageSlider_iss_delay, 1000).toLong()
         autoCycle = typedArray.getBoolean(R.styleable.ImageSlider_iss_auto_cycle, false)
@@ -77,7 +90,8 @@ class ImageSlider @JvmOverloads constructor(
         selectedDot = typedArray.getResourceId(R.styleable.ImageSlider_iss_selected_dot, R.drawable.indicator_active)
         unselectedDot = typedArray.getResourceId(R.styleable.ImageSlider_iss_unselected_dot, R.drawable.indicator_inactive)
         titleBackground = typedArray.getResourceId(R.styleable.ImageSlider_iss_title_background, R.drawable.gradient)
-        isTitle = typedArray.getBoolean(R.styleable.ImageSlider_iss_with_title, true)
+        withTitle = typedArray.getBoolean(R.styleable.ImageSlider_iss_with_title, true)
+        withBackground = typedArray.getBoolean(R.styleable.ImageSlider_iss_with_background, true)
 
         typedArray.getInt(R.styleable.ImageSlider_iss_title_gravity, 0x00800003 or 0x10).let {
             titleGravity = it
@@ -89,6 +103,10 @@ class ImageSlider @JvmOverloads constructor(
 
         typedArray.getColor(R.styleable.ImageSlider_iss_title_color, -0x1).let {
             titleColor = it
+        }
+
+        typedArray.getInt(R.styleable.ImageSlider_iss_image_scaleType, ScaleType.FIT_CENTER.ordinal).let {
+            imageScaleType = sScaleTypeArray[it]
         }
 
     }
@@ -104,9 +122,11 @@ class ImageSlider @JvmOverloads constructor(
         mAdapter.setErrorImage(errorImage)
         mAdapter.setPlaceholderImage(placeholder)
         mAdapter.setBackgroundImage(titleBackground)
-        mAdapter.setWithTitle(isTitle)
+        mAdapter.setWithTitle(withTitle)
+        mAdapter.setWithBackground(withBackground)
         mAdapter.setTitleAlignment(titleGravity)
         mAdapter.setTitleColor(titleColor)
+        mAdapter.setImageScaleType(imageScaleType)
 
         viewPager?.adapter = mAdapter
         if (imageList.isNotEmpty()) {

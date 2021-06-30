@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.afdhal_fa.imagesliderlibarary.databinding.ItemImageSliderBinding
+import com.afdhal_fa.imagesliderlibarary.databinding.ItemSampleImageSliderBinding
 
 /**
  * Created by Muh Fuad Afdhal on 30/06/2021
  * Email: fuad.afdal.fa@gmail.com
  */
 
-class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
+class SampleAdapter : RecyclerView.Adapter<SampleAdapter.VHolder>() {
     private var items: MutableList<String> = mutableListOf()
 
     var onItemClick: ((String) -> Unit)? = null
@@ -25,7 +25,7 @@ class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
 
 
     inner class VHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemImageSliderBinding.bind(itemView)
+        private val binding = ItemSampleImageSliderBinding.bind(itemView)
 
         fun onBind(image: String) {
             binding.imageSlide.load(image)
@@ -43,6 +43,6 @@ class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_image_slider, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.item_sample_image_slider, parent, false)
     )
 }

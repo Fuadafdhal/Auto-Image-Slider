@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         app:iss_auto_cycle="true"
         app:iss_delay="0"
+        app:iss_with_title="false"
         app:iss_period="5000"
         app:iss_title_color="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"

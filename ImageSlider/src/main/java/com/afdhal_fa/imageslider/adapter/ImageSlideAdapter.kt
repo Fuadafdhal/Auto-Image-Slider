@@ -3,6 +3,7 @@ package com.afdhal_fa.imageslider.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.afdhal_fa.imageslider.R
@@ -28,41 +29,13 @@ class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
 
     private var withTitle: Boolean = true
 
+    private var withBackground: Boolean = true
+
     private var titleAlignment: Int = 0
 
     private var titleColor: Int = -0x10000
 
-
-    fun setItem(items: List<SlideUIModel>) {
-        this.items.clear()
-        this.items.addAll(items)
-        notifyDataSetChanged()
-    }
-
-    fun setErrorImage(image: Int) {
-        errorImage = image
-    }
-
-    fun setPlaceholderImage(image: Int) {
-        placeholder = image
-    }
-
-    fun setBackgroundImage(image: Int) {
-        background = image
-    }
-
-    fun setWithTitle(it: Boolean) {
-        withTitle = it
-    }
-
-    fun setTitleAlignment(value: Int) {
-        titleAlignment = value
-    }
-
-    fun setTitleColor(value: Int) {
-        titleColor = value
-    }
-
+    private var imageScaleType: ImageView.ScaleType? = null
 
     inner class VHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemImageSliderBinding.bind(itemView)
@@ -72,12 +45,20 @@ class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
                 placeholder(placeholder)
                 error(errorImage)
             }
-            if (withTitle) {
-                binding.titleContainer.visibility = View.VISIBLE
+            if (imageScaleType != null) binding.imageSlide.scaleType = imageScaleType
+
+            if (withTitle && !model.title.isNullOrEmpty()) {
+                binding.textTitle.visibility = View.VISIBLE
                 binding.textTitle.text = model.title
-                binding.imageBackgroundTitle.load(background)
                 binding.textTitle.gravity = titleAlignment
                 binding.textTitle.setTextColor(titleColor)
+            } else {
+                binding.textTitle.visibility = View.GONE
+            }
+
+            if (withBackground) {
+                binding.titleContainer.visibility = View.VISIBLE
+                binding.titleContainer.setBackgroundResource(background)
             } else {
                 binding.titleContainer.visibility = View.GONE
             }
@@ -105,5 +86,43 @@ class ImageSlideAdapter : RecyclerView.Adapter<ImageSlideAdapter.VHolder>() {
      */
     fun setItemClickListener(itemClickListener: ItemClickListener) {
         this.itemClickListener = itemClickListener
+    }
+
+    fun setItem(items: List<SlideUIModel>) {
+        this.items.clear()
+        this.items.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    fun setErrorImage(image: Int) {
+        errorImage = image
+    }
+
+    fun setPlaceholderImage(image: Int) {
+        placeholder = image
+    }
+
+    fun setBackgroundImage(image: Int) {
+        background = image
+    }
+
+    fun setWithTitle(it: Boolean) {
+        withTitle = it
+    }
+
+    fun setWithBackground(it: Boolean) {
+        withBackground = it
+    }
+
+    fun setTitleAlignment(value: Int) {
+        titleAlignment = value
+    }
+
+    fun setTitleColor(value: Int) {
+        titleColor = value
+    }
+
+    fun setImageScaleType(value: ImageView.ScaleType) {
+        imageScaleType = value
     }
 }

@@ -3,15 +3,12 @@ package com.afdhal_fa.imagesliderlibarary
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.afdhal_fa.imageslider.`interface`.ItemClickListener
-import com.afdhal_fa.imageslider.model.SlideUIModel
 import com.afdhal_fa.imagesliderlibarary.databinding.ActivityWithCustomAdapterBinding
-import com.afdhal_fa.imagesliderlibarary.databinding.ItemImageSliderBinding
 
 class WithCustomAdapterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWithCustomAdapterBinding
 
-    private val mAdapter by lazy { ImageSlideAdapter() }
+    private val mAdapter by lazy { SampleAdapter() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWithCustomAdapterBinding.inflate(layoutInflater)
